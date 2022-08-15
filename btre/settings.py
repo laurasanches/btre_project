@@ -1,5 +1,5 @@
+from datetime import datetime
 from pathlib import Path
-
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'realtors.apps.RealtorsConfig',
     'accounts.apps.AccountsConfig',
     'contacts.apps.ContactsConfig',
+    # "post_office",
+    # "django_crontab",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +50,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'btre.urls'
 
 TEMPLATES = [
+    # {
+    #     'BACKEND': 'post_office.template.backends.post_office.PostOfficeTemplates',
+    #     'DIRS': [os.path.join(BASE_DIR, 'templates')],
+    #     'APP_DIRS': True,
+    # },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
@@ -131,11 +138,18 @@ MESSAGE_TAGS = {
 }
 
 # Email config
-# EMAIL_HOST = 'smtp.gmail.com'
+# DEFAULT_FROM_EMAIL = 'noreply@ezmsip.com'
+# Email Configuration 
+# EMAIL_HOST = 'smtp.office365.com'
 # EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'traversy.brad@gmail.com'
-# EMAIL_HOST_PASSWORD = '''
-# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER = 'noreply@ezmsip.com'
+# EMAIL_HOST_PASSWORD = '#x!t0@in%+'
+# EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'post_office.EmailBackend'
+
+# POST_OFFICE = {
+#     'DEFAULT_PRIORITY' : 'now'
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

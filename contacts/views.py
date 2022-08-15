@@ -1,10 +1,12 @@
+from datetime import date
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import Contact
-from django.core.mail import send_mail
+from post_office import mail
+from django.core.files.base import ContentFile
+# from django.core.mail import send_mail
 
 def contact(request):
-    print('Eu entrei aqui')
     if request.method == 'POST':
         listing_id = request.POST['listing_id']
         listing = request.POST['listing']
@@ -14,7 +16,6 @@ def contact(request):
         message = request.POST['message']
         user_id = request.POST['user_id']
         realtor_email = request.POST['realtor_email']
-
         
         # Check if user has made inquiry already
         if request.user.is_authenticated:
@@ -29,12 +30,27 @@ def contact(request):
         contact.save()
 
         # Send email
-        # send_mail(
+        # mail.send(
+        #     'lalinhabom@gmail.com', 'lalinhabom@gmail.com'
         #     'Property Listing Inquiry',
         #     'There has been an inquiry for ' + listing + '. Sign into the admin panel for more info',
         #     'traversy.brad@gmail.com',
-        #     [realtor_email, 'lalinhabom@gmail.com'],
-        #     fail_silently=False
+        # [realtor_email, 'lalinhabom@gmail.com'],
+        # fail_silently=False
+        # )
+
+
+        # mail.send(
+        #     ['lalinhabom@gmail.com'],
+        #     'lalinhabom@gmail.com',
+        #     template='welcome_email',
+        #     context={'foo': 'bar'},
+        #     priority='now',
+        #     attachments={
+        #         'attachment1.doc': '/path/to/file/file1.doc',
+        #         'attachment2.txt': ContentFile('file content'),
+        #         'attachment3.txt': { 'file': ContentFile('file content'), 'mimetype': 'text/plain'},
+        #     }
         # )
 
         messages.success(request, 'Your request has been submitted, a realtor will get back to you soon')
